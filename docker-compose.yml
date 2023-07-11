@@ -43,6 +43,7 @@ services:
     mem_limit: 512M
     environment:
       - SPRING_PROFILES_ACTIVE = docker,mysql
+      - management.endpoint.health.show-details=always
     depends_on:
       - database
       - config-server
@@ -57,6 +58,7 @@ services:
     mem_limit: 512M
     environment:
       - SPRING_PROFILES_ACTIVE = docker,mysql
+      - management.endpoint.health.show-details=always
     depends_on:
       - database
       - config-server
@@ -71,6 +73,7 @@ services:
     mem_limit: 512M
     environment:
       - SPRING_PROFILES_ACTIVE = docker,mysql
+      - management.endpoint.health.show-details=always
     depends_on:
       - database
       - config-server
