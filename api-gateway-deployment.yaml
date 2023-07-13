@@ -36,7 +36,7 @@ spec:
             - --
             - java
             - org.springframework.boot.loader.JarLauncher
-          image: springcommunity/spring-petclinic-api-gateway:latest
+          image: springcommunity/spring-petclinic-api-gateway:preprod
           name: api-gateway
           ports:
             - containerPort: 8080
