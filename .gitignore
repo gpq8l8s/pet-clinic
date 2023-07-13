@@ -19,3 +19,8 @@ target/
 
 # Branch switching
 generated/
+
+# gcp key
+/kim-hyebin-287853483f1a.json
+/terraform/kim-hyebin-0030a87dd4f5.json
+/ca.key
