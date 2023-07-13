@@ -1,46 +1,55 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f docker-compose.yml
-    kompose.version: 1.29.0 (997957870)
+
   creationTimestamp: null
   labels:
-    environment: latest
-    io.kompose.service: discovery-server
+    service: discovery-server
   name: discovery-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: discovery-server
+      service: discovery-server
   strategy: {}
   template:
     metadata:
-      annotations:
-        kompose.cmd: C:\ProgramData\chocolatey\lib\kubernetes-kompose\tools\kompose.exe convert -f docker-compose.yml
-        kompose.version: 1.29.0 (997957870)
       creationTimestamp: null
       labels:
-        io.kompose.network/spring-petclinic-microservices-default: "true"
-        io.kompose.service: discovery-server
+        service: discovery-server
     spec:
       imagePullSecrets:
-        - name: gcr-json-key
+        - name: gcr-json-key 
       containers:
-        - command:
-            - ./dockerize
-            - -wait=tcp://config-server:8888
-            - -timeout=60s
-            - --
-            - java
-            - org.springframework.boot.loader.JarLauncher
-          image: springcommunity/spring-petclinic-discovery-server:latest
-          name: discovery-server
-          ports:
-            - containerPort: 8761
-          resources:
-            limits:
-              memory: "536870912"
+      - name: discovery-server
+
+        image: springcommunity/spring-petclinic-discovery-server:latest
+        command:
+          - ./dockerize
+          - -wait=tcp://config-server:8888
+          - -timeout=60s
+          - --
+          - java
+          - org.springframework.boot.loader.JarLauncher
+        ports:
+        - containerPort: 8761
+        resources: {}
       restartPolicy: Always
 status: {}
+
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: discovery-server
+spec:
+  maxReplicas: 7
+  minReplicas: 3
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: discovery-server
+  targetCPUUtilizationPercentage: 75
+status:
+  currentReplicas: 5
+  desiredReplicas: 3
