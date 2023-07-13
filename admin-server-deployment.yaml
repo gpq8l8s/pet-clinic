@@ -38,7 +38,7 @@ spec:
           env:
             # - name: 'SPRING_PROFILES_ACTIVE '
             #   value: ' docker'
-          image: springcommunity/spring-petclinic-admin-server:latest
+          image: springcommunity/spring-petclinic-admin-server:prod
           name: admin-server
           ports:
             - containerPort: 9090

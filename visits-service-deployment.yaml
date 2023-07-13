@@ -40,7 +40,7 @@ spec:
               # value: ' docker'
             - name: management.endpoint.health.show-details
               value: always
-          image: springcommunity/spring-petclinic-visits-service:latest
+          image: springcommunity/spring-petclinic-visits-service:prod
           name: visits-service
           ports:
             - containerPort: 8082

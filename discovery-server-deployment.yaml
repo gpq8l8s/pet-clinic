@@ -35,7 +35,7 @@ spec:
             - --
             - java
             - org.springframework.boot.loader.JarLauncher
-          image: springcommunity/spring-petclinic-discovery-server:latest
+          image: springcommunity/spring-petclinic-discovery-server:prod
           name: discovery-server
           ports:
             - containerPort: 8761
